@@ -7,7 +7,7 @@ class Home extends BaseController
 		$db = \Config\Database::connect();
         $query = $db->query("select * from todo where is_deleted like 0");
         $data['todolist'] = $query->getResultArray();
-        return view('homepage' , $data );
+        return view('homepage2' , $data );
 	}
 
 
@@ -15,9 +15,11 @@ public function insert()
 {
     $db = \Config\Database::connect();
     $request = \Config\Services::request();
-    $name1 = $request->getVar('name1');
+    helper(['form', 'url']);
+    $name1 = $this->request->getPost('name1');
+    //$name1 = $request->getVar('name1');
     $db->query('insert into todo (name,is_deleted) values (?,0)',[$name1]);
-    return redirect()->to('/');	
+    //return redirect()->to('/');	
 }
 public function insertpage()
 {
@@ -26,21 +28,22 @@ public function insertpage()
 
 public function delete()
 {
-    $uri = $this->request->uri;
-    $id = $uri->getSegment(3);
+    //$uri = $this->request->uri;
+    //$id = $uri->getSegment(3);
+    helper(['form', 'url']);
+    $id = $this->request->getPost('id1');
     $db = \Config\Database::connect();
     $db->query('update todo set is_deleted= True where id like ?',[$id]);
-    return redirect()->to('/');
+    //return redirect()->to('/');
 }
 
 public function update()
 {
+    helper(['form', 'url']);
+    $id1 = $this->request->getPost('id1');
+    $name1 = $this->request->getPost('name1');
     $db = \Config\Database::connect();
-    $request = \Config\Services::request();
-    $name1 = $request->getVar('name1');
-    $id1 = $request->getVar('id1');
     $db->query('update todo set name = ? where id like ?',[$name1,$id1]);
-    return redirect()->to('/');	
 }
 public function updatepage()
 {
