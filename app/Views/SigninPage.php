@@ -31,11 +31,11 @@ $validation =  \Config\Services::validation();
                     <label class="col-lg-2 col-form-label">password:</label>
                     <input type="password" name="password" value="" class="form-control1">
                 <div class="form-group">
-                    <button type="submit" name="adduser" class="btn btn-primary">SAVE</button>
+                    <button type="submit" name="adduser" class="btn btn-primary">Singin</button>
                 </div>
             </form>
             <a href="/signup">Signup </a> 
-            <a href="/datatable">datatable(without sigin) </a> 
+            <a href="/main">main(without sigin) </a> 
         </div>
 </body>
 </html>

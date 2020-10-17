@@ -106,9 +106,14 @@ class Home extends BaseController
         if ($c > 0) {
             $onerow = $query->getRow();
             $pass = $onerow->password;
+            $id = $onerow->id;
             $pwd_peppered = hash_hmac("sha256", $password, 'majd');
             if (password_verify($pwd_peppered, $pass)) {
-                return redirect()->to('/main');
+                ob_start();
+                session_start();
+                $_SESSION['username']= $username;
+                $_SESSION['userid'] = $id;
+                return redirect()->to('/datatable');
             }
             else{
                 $data['ch'] = false;
@@ -139,6 +144,21 @@ public function insert()
     $name1 = $this->request->getPost('name1');
     //$name1 = $request->getVar('name1');
     $db->query('insert into todo (name,is_deleted) values (?,0)',[$name1]);
+    //return redirect()->to('/');	
+}
+
+public function insertsession()
+{
+    $db = \Config\Database::connect();
+    $request = \Config\Services::request();
+    helper(['form', 'url']);
+    $name1 = $this->request->getPost('name1');
+    //$name1 = $request->getVar('name1');
+    ob_start();
+    session_start();
+    $userid = $_SESSION['userid'];
+    echo $userid;
+    $db->query('insert into todo (name,is_deleted,user_id) values (?,0,?)',[$name1,$userid]);
     //return redirect()->to('/');	
 }
 public function insertpage()
