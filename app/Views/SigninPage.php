@@ -35,6 +35,7 @@ $validation =  \Config\Services::validation();
                 </div>
             </form>
             <a href="/signup">Signup </a> 
+            <a href="/datatable">datatable(without sigin) </a> 
         </div>
 </body>
 </html>

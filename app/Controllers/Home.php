@@ -10,6 +10,20 @@ class Home extends BaseController
         $data['ch'] = true;
         echo view('SigninPage',$data);
     }
+    public function datatable()
+    {
+        $db = \Config\Database::connect();
+        $query = $db->query("select name from todo where is_deleted like 0");
+        $data['todolist'] = $query->getResultArray();
+        return view('datatable',$data);
+    }
+    public function jsontest()
+    {
+        $db = \Config\Database::connect();
+        $query = $db->query("select name from todo where is_deleted like 0");
+        $data = $query->getResultArray();
+        echo '{"data": '.json_encode($data) .'}';
+    }
     public function reg()
     {
         helper(['form','url']);

@@ -34,6 +34,7 @@ $routes->get('/', 'Home::index');
 $routes->get('/insertpage', 'Home::insertpage');
 $routes->get('/signup', 'Home::SignupPage');
 $routes->get('/main', 'Home::view');
+$routes->get('/datatable', 'Home::datatable');
 
 /**
  * --------------------------------------------------------------------
