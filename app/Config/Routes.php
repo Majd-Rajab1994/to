@@ -30,11 +30,18 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
 $routes->get('/', 'Home::index');
 $routes->get('/insertpage', 'Home::insertpage');
 $routes->get('/signup', 'Home::SignupPage');
 $routes->get('/main', 'Home::view');
 $routes->get('/datatable', 'Home::datatable');
+$routes->get('/apiview', 'apiforms::index');
+
+$routes->resource('apitest');
+$routes->get('/apiindex', 'apitest::index');
+$routes->post('/apiinsert','apitest::create');
+
 
 /**
  * --------------------------------------------------------------------

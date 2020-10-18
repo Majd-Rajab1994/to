@@ -33,16 +33,16 @@
     <script>
         $(document).ready(function() {
             $('#example').DataTable( {
-                "ajax": "<?php echo base_url(); ?>/Home/jsontest",
+                "ajax": "<?php echo base_url(); ?>/apiforms/apiget",
                 "columns" : [
-                    {"data":"name"}
+                    {"data" :"name"}
                 ]
             } );
         } );
         function save1()
         {
             var url1;
-            url1 = "<?php echo base_url(); ?>/Home/insertsession";
+            url1 = "<?php echo base_url(); ?>/apiforms/insertapi";
             //alert($('#form').serialize());
             $.ajax({
                 type: "POST",
