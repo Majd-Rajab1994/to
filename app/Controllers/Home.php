@@ -2,6 +2,7 @@
 
 use CodeIgniter\Validation\Validation;
 use Config\Validation as ConfigValidation;
+use App\Models\todomodel;
 
 class Home extends BaseController
 {
@@ -12,16 +13,20 @@ class Home extends BaseController
     }
     public function datatable()
     {
-        $db = \Config\Database::connect();
-        $query = $db->query("select name from todo where is_deleted like 0");
-        $data['todolist'] = $query->getResultArray();
+        $model = new todomodel();
+        //$db = \Config\Database::connect();
+        //$query = $db->query("select name from todo where is_deleted like 0");
+        //$data['todolist'] = $query->getResultArray();
+        $data['todolist'] = $model->where('is_deleted ',0)->findAll();
         return view('datatable',$data);
     }
     public function jsontest()
     {
-        $db = \Config\Database::connect();
-        $query = $db->query("select name from todo where is_deleted like 0");
-        $data = $query->getResultArray();
+        //$db = \Config\Database::connect();
+        //$query = $db->query("select name from todo where is_deleted like 0");
+        //$data = $query->getResultArray();
+        $model = new todomodel();
+        $data = $model->where('is_deleted ',0)->findAll();
         echo '{"data": '.json_encode($data) .'}';
     }
     public function reg()
@@ -129,22 +134,31 @@ class Home extends BaseController
     
     public function view()
     {
-        $db = \Config\Database::connect();
-        $query = $db->query("select * from todo where is_deleted like 0");
-        $data['todolist'] = $query->getResultArray();
+        //$db = \Config\Database::connect();
+        //$query = $db->query("select * from todo where is_deleted like 0");
+        //$data['todolist'] = $query->getResultArray();
+        $model = new todomodel();
+        $data['todolist'] = $model->where('is_deleted ',0)->findAll();
         return view('homepage2' , $data );
     }
 
 
 public function insert()
 {
-    $db = \Config\Database::connect();
-    $request = \Config\Services::request();
+    //$db = \Config\Database::connect();
+    //$request = \Config\Services::request();
+    //helper(['form', 'url']);
+    //$name1 = $this->request->getPost('name1');
+    ////$name1 = $request->getVar('name1');
+    //$db->query('insert into todo (name,is_deleted) values (?,0)',[$name1]);
+    ////return redirect()->to('/');	
     helper(['form', 'url']);
-    $name1 = $this->request->getPost('name1');
-    //$name1 = $request->getVar('name1');
-    $db->query('insert into todo (name,is_deleted) values (?,0)',[$name1]);
-    //return redirect()->to('/');	
+    $model = new todomodel();
+    $data = [
+        'name' => $this->request->getPost('name1'),
+        'is_deleted' => 0
+    ];
+    $model->insert($data);
 }
 
 public function insertsession()
@@ -180,10 +194,14 @@ public function delete()
 public function update()
 {
     helper(['form', 'url']);
+    $model = new todomodel();
+    $data= [
+        'name' => $this->request->getPost('name1')
+    ];
     $id1 = $this->request->getPost('id1');
-    $name1 = $this->request->getPost('name1');
-    $db = \Config\Database::connect();
-    $db->query('update todo set name = ? where id like ?',[$name1,$id1]);
+    //$db = \Config\Database::connect();
+    //$db->query('update todo set name = ? where id like ?',[$name1,$id1]);
+    $model->update($id1,$data);
 }
 public function updatepage()
 {
