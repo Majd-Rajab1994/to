@@ -11,6 +11,10 @@ class Home extends BaseController
         $data['ch'] = true;
         echo view('SigninPage',$data);
     }
+    public function select2()
+    {
+        return view('select2');
+    }
     public function datatable()
     {
         $model = new todomodel();
@@ -29,6 +33,20 @@ class Home extends BaseController
         $data = $model->where('is_deleted ',0)->findAll();
         echo '{"data": '.json_encode($data) .'}';
     }
+
+    public function gettodo()
+    {
+        //helper(['form','url']);
+        $request = \Config\Services::request();
+        $q = $request->getPost('q');
+        //$q = '';
+        $db = \Config\Database::connect();
+        $query = $db->query("select * from todo where is_deleted like 0 and name like '%".$q."%' ");
+        $data = $query->getResultArray();
+        //echo '{"data" : '.json_encode($data)."}";
+        echo json_encode($data);
+    }
+
     public function reg()
     {
         helper(['form','url']);

@@ -37,6 +37,7 @@ $validation =  \Config\Services::validation();
             <a href="/signup">Signup </a> 
             <a href="/main">main(without sigin) </a> 
             <a href="/apiview">apiview(without sigin) </a> 
+            <a href="/select2">select2 </a> 
         </div>
 </body>
 </html>

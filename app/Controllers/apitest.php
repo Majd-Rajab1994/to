@@ -10,7 +10,6 @@ class apitest extends ResourceController
     use ResponseTrait;
     public function index()
     {
-        
         $db = \Config\Database::connect();
         $query = $db->query("select * from todo where is_deleted like 0");
         $data = $query->getResult();
