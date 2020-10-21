@@ -38,6 +38,9 @@ $validation =  \Config\Services::validation();
             <a href="/main">main(without sigin) </a> 
             <a href="/apiview">apiview(without sigin) </a> 
             <a href="/select2">select2 </a> 
+            <div>
+                <a href="/scroll">Infinite Scroll </a> 
+            </div>
         </div>
 </body>
 </html>
